@@ -20,7 +20,8 @@ if __name__ == "__main__":
     print(result)
 ```
 
-Run the python funtion
+Run the python funtion locally using VS Code Run Button
+- Click the “Run Python File” button in the top right corner.
 
 ```
 # Output
