@@ -50,3 +50,15 @@ module "api_gateway" {
   lambda_invoke_arn = module.lambda.function_invoke_arn
   common_tags       = local.common_tags
 }
+
+# Lambda Module
+module "lambda" {
+  source = "./modules/lambda"
+  environment                = var.environment
+  lambda_role_arn            = module.iam.lambda_role_arn
+  dynamodb_table_name        = module.dynamodb.table_name
+  api_gateway_execution_arn  = module.api_gateway.execution_arn
+  lambda_funtion_dir          = var.lambda_funtion_dir
+  common_tags                = local.common_tags
+  depends_on = [module.api_gateway]
+}
