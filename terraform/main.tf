@@ -7,12 +7,6 @@ terraform {
       version = "~> 5.0"
     }
   }
-
-  backend "s3" {
-    bucket = var.terraform_backend_bucket
-    key    = "${var.project_name}/${var.environment}/tfstate"
-    region = var.aws_region
-  }
 }
 
 provider "aws" {
@@ -30,4 +24,11 @@ locals {
     ManagedBy   = "Terraform"
     CreatedAt   = timestamp()
   }
+}
+
+# DynamoDB Module
+module "dynamodb" {
+  source = "./modules/dynamodb"
+  environment  = var.environment
+  common_tags  = local.common_tags
 }
