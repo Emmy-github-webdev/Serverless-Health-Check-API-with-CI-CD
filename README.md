@@ -31,4 +31,4 @@ Run the python funtion locally using VS Code Run Button
 
 - Create the terraform folder structure
 
-- imp
+- Deploy with: terraform init then terraform apply -var-file="staging.tfvars" (or prod.tfvars)

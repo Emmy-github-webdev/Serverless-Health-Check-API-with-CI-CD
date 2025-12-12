@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_api" "health_api" {
-  name          = "${var.environment}-health-check-api"
+  name          = "${var.environment}-serverless-health-check-api"
   protocol_type = "HTTP"
 
   cors_configuration {
@@ -55,7 +55,7 @@ resource "aws_apigatewayv2_stage" "default" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_logs" {
-  name              = "/aws/apigateway/${var.environment}-health-check-api"
+  name              = "/aws/apigateway/${var.environment}-serverless-health-check-api"
   retention_in_days = 7
 
   tags = var.common_tags
