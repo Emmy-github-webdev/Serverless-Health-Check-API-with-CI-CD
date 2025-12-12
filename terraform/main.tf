@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -28,9 +28,9 @@ locals {
 
 # DynamoDB Module
 module "dynamodb" {
-  source = "./modules/dynamodb"
-  environment  = var.environment
-  common_tags  = local.common_tags
+  source      = "./modules/dynamodb"
+  environment = var.environment
+  common_tags = local.common_tags
 }
 
 # IAM Module
@@ -44,7 +44,7 @@ module "iam" {
 
 # API Gateway Module
 module "api_gateway" {
-  source = "./modules/api-gateway"
+  source            = "./modules/api-gateway"
   environment       = var.environment
   lambda_invoke_arn = module.lambda.function_invoke_arn
   common_tags       = local.common_tags
@@ -52,13 +52,13 @@ module "api_gateway" {
 
 # Lambda Module
 module "lambda" {
-  source = "./modules/lambda"
-  environment                = var.environment
-  lambda_role_arn            = module.iam.lambda_role_arn
-  dynamodb_table_name        = module.dynamodb.table_name
-  api_gateway_execution_arn  = module.api_gateway.execution_arn
-  lambda_funtion_dir          = var.lambda_funtion_dir
-  common_tags                = local.common_tags
+  source                    = "./modules/lambda"
+  environment               = var.environment
+  lambda_role_arn           = module.iam.lambda_role_arn
+  dynamodb_table_name       = module.dynamodb.table_name
+  api_gateway_execution_arn = module.api_gateway.execution_arn
+  lambda_funtion_dir        = var.lambda_funtion_dir
+  common_tags               = local.common_tags
   # depends_on = [module.api_gateway]
 }
 
