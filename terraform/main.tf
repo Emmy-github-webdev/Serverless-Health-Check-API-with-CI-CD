@@ -32,3 +32,21 @@ module "dynamodb" {
   environment  = var.environment
   common_tags  = local.common_tags
 }
+
+# IAM Module
+module "iam" {
+  source = "./modules/iam"
+
+  environment        = var.environment
+  dynamodb_table_arn = module.dynamodb.table_arn
+  common_tags        = local.common_tags
+}
+
+# API Gateway Module
+module "api_gateway" {
+  source = "./modules/api_gateway"
+
+  environment       = var.environment
+  lambda_invoke_arn = module.lambda.function_invoke_arn
+  common_tags       = local.common_tags
+}
