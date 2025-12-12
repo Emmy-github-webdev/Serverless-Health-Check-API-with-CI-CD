@@ -44,8 +44,7 @@ module "iam" {
 
 # API Gateway Module
 module "api_gateway" {
-  source = "./modules/api_gateway"
-
+  source = "./modules/api-gateway"
   environment       = var.environment
   lambda_invoke_arn = module.lambda.function_invoke_arn
   common_tags       = local.common_tags
@@ -60,5 +59,6 @@ module "lambda" {
   api_gateway_execution_arn  = module.api_gateway.execution_arn
   lambda_funtion_dir          = var.lambda_funtion_dir
   common_tags                = local.common_tags
-  depends_on = [module.api_gateway]
+  # depends_on = [module.api_gateway]
 }
+
