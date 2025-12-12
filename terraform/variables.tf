@@ -5,8 +5,8 @@ variable "aws_region" {
 }
 
 variable "terraform_backend_bucket" {
-  default = ""
-  description = "AWS Bucket for Terraform backend"
+  default = "serverlesshealthcheckapi"
+  description = "AWS S3 Bucket for Terraform backend"
   type = string
 }
 
