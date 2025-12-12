@@ -28,3 +28,7 @@ Run the python funtion locally using VS Code Run Button
 
 {'statusCode': 200, 'body': 'Hello, Emmanuel Ogah!'}"
 ```
+
+- Create the terraform folder structure
+
+- imp
