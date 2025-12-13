@@ -32,3 +32,11 @@ Run the python funtion locally using VS Code Run Button
 - Create the terraform folder structure
 
 - Deploy with: terraform init then terraform apply -var-file="staging.tfvars" (or prod.tfvars)
+
+
+endpoint - https://nrbefv9bcj.execute-api.us-east-1.amazonaws.com/health
+
+
+terraform init -backend-config=backend-staging.tfvars for staging environment
+
+terraform init -backend-config=backend-prod.tfvars for prod environment

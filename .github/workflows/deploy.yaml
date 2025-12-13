@@ -8,13 +8,14 @@ on:
   workflow_dispatch:
 
 env:
-  TF_WORKING_DIR: terraform/
+  TF_WORKING_DIR: terraform
 
 jobs:
   terraform:
     name: Terraform (plan & apply)
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }}
+
     permissions:
       contents: read
 
@@ -34,9 +35,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # Backend selection based on branch
       - name: Terraform Init
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform init -input=false
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/staging" ]; then
+            terraform init -reconfigure -backend-config=backend-staging.tfvars -input=false
+          else
+            terraform init -reconfigure -backend-config=backend-prod.tfvars -input=false
+          fi
 
       - name: Terraform Validate & Format
         working-directory: ${{ env.TF_WORKING_DIR }}
@@ -54,17 +61,17 @@ jobs:
             terraform plan -var-file="prod.tfvars" -out=tfplan
           fi
 
-      - name: Terraform Apply
+      - name: Terraform Apply (staging)
         if: github.ref == 'refs/heads/staging'
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform apply -input=false -auto-approve tfplan
 
-      - name: Terraform Apply (prod) - requires env approval
+      - name: Terraform Apply (prod)
         if: github.ref == 'refs/heads/main'
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform apply -input=false -auto-approve tfplan
 
-      - name: Show outputs
+      - name: Show Outputs
         if: success()
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform output -json
