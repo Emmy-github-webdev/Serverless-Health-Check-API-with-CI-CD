@@ -97,6 +97,8 @@ Each Lambda function has one dedicated IAM role with:
 ## Setup
 
 _Repository Structure_
+
+```text
 .
 ├── .github
 │   └── workflows
@@ -117,7 +119,6 @@ _Repository Structure_
 │   ├── backend-prod.tfvars
 │   └── backend-staging.tfvars
 └── README.md
-
 
 - Create the lambda function, run the python funtion locally using VS Code Run Button, import boto3, logging,json, os, uuid.
 - Resource names follows _env-resource-name_
