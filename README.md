@@ -100,8 +100,8 @@ _Repository Structure_
 .
 ├── .github
 │   └── workflows
-│       └── deploy.yml
-        ├── destroy.yml
+│       ├── deploy.yml
+│       └── destroy.yml
 ├── lambda
 │   └── lambda_function.py
 ├── terraform
@@ -112,11 +112,12 @@ _Repository Structure_
 │   ├── lambda.tf
 │   ├── apigw.tf
 │   ├── outputs.tf
-│   └── staging.tfvars
-│   └── prod.tfvars
-|   └── backend-prod.tfvars
-|   └── backend-staging.tfvars
+│   ├── staging.tfvars
+│   ├── prod.tfvars
+│   ├── backend-prod.tfvars
+│   └── backend-staging.tfvars
 └── README.md
+
 
 - Create the lambda function, run the python funtion locally using VS Code Run Button, import boto3, logging,json, os, uuid.
 - Resource names follows _env-resource-name_
