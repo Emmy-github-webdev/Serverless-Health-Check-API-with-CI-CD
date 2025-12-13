@@ -12,11 +12,16 @@ on:
           - prod
 
 env:
-  TF_WORKING_DIR: terraform/
+  TF_WORKING_DIR: terraform
 
 jobs:
   destroy:
+    name: Terraform Destroy
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
@@ -34,9 +39,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # Backend selection based on input
       - name: Terraform Init
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform init -input=false
+        run: |
+          if [ "${{ github.event.inputs.environment }}" = "staging" ]; then
+            terraform init -reconfigure -backend-config=backend-staging.tfvars -input=false
+          else
+            terraform init -reconfigure -backend-config=backend-prod.tfvars -input=false
+          fi
 
       - name: Terraform Destroy
         working-directory: ${{ env.TF_WORKING_DIR }}

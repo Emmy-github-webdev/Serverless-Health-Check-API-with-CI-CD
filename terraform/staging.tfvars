@@ -1,3 +1,2 @@
-environment  = "staging"
-aws_region   = "us-east-1"
-project_name = "serverless-health-check-api"
+env        = "staging"
+aws_region = "us-east-1"
