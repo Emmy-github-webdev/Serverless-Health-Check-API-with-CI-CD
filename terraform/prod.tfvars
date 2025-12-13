@@ -1,3 +1,2 @@
-environment  = "prod"
-aws_region   = "us-east-1"
-project_name = "serverless-health-check-api"
+env = "prod"
+aws_region = "us-east-1"
