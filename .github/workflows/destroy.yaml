@@ -12,7 +12,7 @@ on:
           - prod
 
 env:
-  TF_WORKING_DIR: terraform/
+  TF_WORKING_DIR: terraform
 
 jobs:
   destroy:
